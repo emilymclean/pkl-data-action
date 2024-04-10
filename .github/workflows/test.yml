@@ -1,0 +1,22 @@
+name: Test
+
+on:
+  push:
+    branches: [ master, main, develop ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    needs:
+      - version
+      - release
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - uses: ./
+        with:
+          input-file: test/example.pkl
+          output-file: test/example.json
+          format: json
+      - run: |
+          cat test/example.json
