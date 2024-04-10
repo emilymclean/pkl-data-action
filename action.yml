@@ -1,0 +1,24 @@
+name: 'Pkl Data'
+author: 'Emily McLean'
+description: 'Generates final distributable data output from a specified Pkl file. Based on version 0.25.2 of the Pkl tool/lang.'
+inputs:
+  input-file:
+    description: 'The PCB file to process'
+    required: true
+  output-file:
+    description: 'Where the resulting data will be written to.'
+    required: true
+  format:
+    description: 'The data format to use'
+    required: true
+    default: "json"
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.input-file }}
+    - ${{ inputs.output-file }}
+    - ${{ inputs.format }}
+branding:
+  icon: 'cpu'
+  color: 'green'
