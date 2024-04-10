@@ -1,3 +1,3 @@
 #!/bin/sh -l
 
-./pkl eval /github/workspace/$1 -f $3 -o /github/workspace/$2
+/app/pkl eval /github/workspace/$1 -f $3 -o /github/workspace/$2

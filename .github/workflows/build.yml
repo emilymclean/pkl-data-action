@@ -49,3 +49,4 @@ jobs:
           release_name: Release ${{ needs.version.outputs.version }}
           draft: false
           prerelease: ${{ github.ref == 'refs/heads/develop' }}
+
