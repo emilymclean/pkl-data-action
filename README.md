@@ -1,6 +1,6 @@
 # PklData Action
 
-Generates final distributable data output from a specified Pkl file. Based on version 0.25.2 of the Pkl tool/lang.
+Generates final distributable data output from a specified Pkl file. Based on version 0.25.3 of the Pkl tool/lang.
 
 ## Inputs
 
@@ -27,7 +27,7 @@ The data format to use. Default `json`. Acceptable values are:
 
 ## Example usage
 ```
-uses: BenMMcLean/PklData@v0.1.0
+uses: BenMMcLean/PklData@v1
 with:
   input-file: data.pkl
   output-file: data.json
