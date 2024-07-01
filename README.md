@@ -1,6 +1,6 @@
 # PklData Action
 
-Generates final distributable data output from a specified Pkl file. Based on version 0.26.0 of the Pkl tool/lang.
+Generates final distributable data output from a specified Pkl file. Based on version 0.26.1 of the Pkl tool/lang.
 
 ## Inputs
 
