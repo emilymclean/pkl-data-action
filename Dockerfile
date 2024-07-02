@@ -5,7 +5,7 @@ RUN apt-get update && \
 
 WORKDIR /app
 
-RUN curl -L -o pkl https://github.com/apple/pkl/releases/download/0.26.0/pkl-linux-amd64
+RUN curl -L -o pkl https://github.com/apple/pkl/releases/download/0.26.1/pkl-linux-amd64
 RUN chmod +x pkl
 
 COPY entrypoint.sh /entrypoint.sh
