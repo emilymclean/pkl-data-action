@@ -15,15 +15,15 @@ inputs:
   pkl-version:
     description: The pkl version to install.
     required: false
-    default: '0.26.3'
+    default: '{{ .pkl_version }}'
 runs:
   using: 'composite'
   steps:
     - name: Install pkl
       uses: pkl-community/setup-pkl@v0
       with:
-        pkl-version: ${{ inputs.pkl-version }}
-    - run: pkl eval "${{ inputs.input-file }}" -f ${{ inputs.format }} -o "${{ inputs.output-file }}"
+        pkl-version: ${{`{{ inputs.pkl-version }}`}}
+    - run: pkl eval "${{`{{ inputs.input-file }}`}}" -f ${{`{{ inputs.format }}`}} -o "${{`{{ inputs.output-file }}`}}"
       shell: bash
 branding:
   icon: 'cpu'
