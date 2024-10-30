@@ -23,7 +23,7 @@ runs:
       uses: pkl-community/setup-pkl@v0
       with:
         pkl-version: ${{`{{ inputs.pkl-version }}`}}
-    - run: pkl eval "/github/workspace/${{`{{ inputs.input-file }}`}}" -f ${{`{{ inputs.format }}`}} "/github/workspace/${{`{{ inputs.output-file }}`}}"
+    - run: pkl eval "${{`{{ inputs.input-file }}`}}" -f ${{`{{ inputs.format }}`}} -o "${{`{{ inputs.output-file }}`}}"
       shell: bash
 branding:
   icon: 'cpu'
