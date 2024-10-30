@@ -13,6 +13,7 @@ jobs:
         uses: actions/checkout@v2
       - uses: ./render-template
       - run: cat action.yml
+      - run: cat README.md
       - uses: ./
         with:
           input-file: test/example.pkl

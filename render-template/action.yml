@@ -16,3 +16,11 @@ runs:
         result_path: action.yml
         vars: |
           pkl_version: ${{ env.pkl-version }}
+    - name: Update README.md
+      uses: recih/template-render-action@v1.0.2
+      env:
+        pkl_version: ${{ env.pkl-version }}
+      with:
+        template-file: templates/README.template.md
+        output-file: README.md
+        engine: mustache
