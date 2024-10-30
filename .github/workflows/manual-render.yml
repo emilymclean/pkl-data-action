@@ -1,0 +1,22 @@
+name: "Manually render templates"
+
+on:
+    workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps: 
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - uses: ./render-template
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: "render-templates/docs/manually-render-templates-${{ github.run_id }}"
+          title: "Render template"
+          assignees: emilymclean
+          reviewers: emilymclean
