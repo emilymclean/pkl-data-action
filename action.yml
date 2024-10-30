@@ -1,9 +1,9 @@
 name: 'Pkl Data'
 author: 'Emily McLean'
-description: 'Generates final distributable data output from a specified Pkl file. Based on version 0.26.3 of the Pkl tool/lang.'
+description: 'Generates final distributable data output from a specified Pkl file.'
 inputs:
   input-file:
-    description: 'The PCB file to process'
+    description: 'The pkl file to process'
     required: true
   output-file:
     description: 'Where the resulting data will be written to.'
@@ -12,13 +12,19 @@ inputs:
     description: 'The data format to use'
     required: true
     default: "json"
+  pkl-version:
+    description: The pkl version to install.
+    required: false
+    default: '0.26.3'
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
-  args:
-    - ${{ inputs.input-file }}
-    - ${{ inputs.output-file }}
-    - ${{ inputs.format }}
+  using: 'composite'
+  steps:
+    - name: Install pkl
+      uses: pkl-community/setup-pkl@v0
+      with:
+        pkl-version: ${{ inputs.pkl-version }}
+    - run: pkl eval "${{ inputs.input-file }}" -f ${{ inputs.format }} -o "${{ inputs.output-file }}"
+      shell: bash
 branding:
   icon: 'cpu'
   color: 'green'
