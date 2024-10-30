@@ -7,7 +7,7 @@ runs:
     - name: Read current pkl version
       shell: bash
       run: |
-        echo "pkl-version=$(cat .github/.pkl-version)" >> ${GITHUB_ENV}
+        echo "pkl-version=$(cat .pkl-version)" >> ${GITHUB_ENV}
     - name: Render template
       id: render_template
       uses: chuhlomin/render-template@v1
