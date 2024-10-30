@@ -11,6 +11,17 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      - name: Read current pkl version
+        run: |
+          echo "pkl-version=$(cat .pkl-version)" >> ${GITHUB_ENV}
+      - name: Render template
+        id: render_template
+        uses: chuhlomin/render-template@v1
+        with:
+          template: templates/action.template.yml
+          result_path: action.yml
+          vars: |
+            pkl-version: ${{ env.pkl-version }}
       - uses: ./
         with:
           input-file: test/example.pkl

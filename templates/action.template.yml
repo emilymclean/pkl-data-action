@@ -1,0 +1,29 @@
+name: 'Pkl Data'
+author: 'Emily McLean'
+description: 'Generates final distributable data output from a specified Pkl file.'
+inputs:
+  input-file:
+    description: 'The pkl file to process'
+    required: true
+  output-file:
+    description: 'Where the resulting data will be written to.'
+    required: true
+  format:
+    description: 'The data format to use'
+    required: true
+    default: "json"
+  pkl-version:
+    description: The pkl version to install.
+    required: false
+    default: '{{ .pkl-version }}'
+runs:
+  using: 'composite'
+  steps:
+    - name: Install pkl
+      uses: pkl-community/setup-pkl@v0
+      with:
+        pkl-version: ${{`{{ inputs.pkl-version }}`}}
+    - run: pkl eval "${{`{{ inputs.input-file }}`}}" -f ${{`{{ inputs.format }}`}} ${{`{{ inputs.output-file }}`}}
+branding:
+  icon: 'cpu'
+  color: 'green'
