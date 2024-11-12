@@ -39,6 +39,7 @@ jobs:
         with:
           ref: "develop"
       - uses: ./render-template
+      - run: echo "${{ needs.version.outputs.latest-version }}" > .pkl-version
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
         with:
