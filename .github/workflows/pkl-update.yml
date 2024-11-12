@@ -38,13 +38,13 @@ jobs:
     steps: 
       - name: Checkout code
         uses: actions/checkout@v4
+      - run: echo "${{ needs.version.outputs.latest-version }}" > .pkl-version
       - name: Setup node for gomplate
         uses: actions/setup-node@v4
       - name: Render templates
         run: |-
           npm install -g gomplate
           ./render-templates.sh
-      - run: echo "${{ needs.version.outputs.latest-version }}" > .pkl-version
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
         with:
