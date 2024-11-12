@@ -13,19 +13,21 @@ jobs:
       latest-version: ${{ steps.pkl-release.outputs.release }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          ref: "develop"
+        uses: actions/checkout@v4
       - name: Get current Pkl version
         run: |
-          VER=$(cat .pkl-version)
-          echo "PKL_VERSION=$VER" >> $GITHUB_ENV
+          echo "PKL_VERSION=$(cat .pkl-version)" >> $GITHUB_ENV
       - id: pkl-release
         uses: pozetroninc/github-action-get-latest-release@master
         with:
           owner: apple
           repo: pkl
           excludes: prerelease, draft
+      - name: Job Summary
+        run: |-
+          echo "### Versions" >> $GITHUB_STEP_SUMMARY
+          echo "Current version: ${{ env.PKL_VERSION }}" >> $GITHUB_STEP_SUMMARY
+          echo "Latest version: ${{ steps.pkl-release.outputs.release }}" >> $GITHUB_STEP_SUMMARY
   update:
     runs-on: ubuntu-latest
     needs: version
@@ -35,10 +37,13 @@ jobs:
       pull-requests: write
     steps: 
       - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          ref: "develop"
-      - uses: ./render-template
+        uses: actions/checkout@v4
+      - name: Setup node for gomplate
+        uses: actions/setup-node@v4
+      - name: Render templates
+        run: |-
+          npm install -g gomplate
+          ./render-templates.sh
       - run: echo "${{ needs.version.outputs.latest-version }}" > .pkl-version
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
