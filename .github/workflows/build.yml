@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.gitversion.outputs.semVer }}
+      major: ${{ steps.gitversion.outputs.major }}
     steps:
       - name: Check out code
         uses: actions/checkout@v4
@@ -49,4 +50,8 @@ jobs:
           release_name: Release ${{ needs.version.outputs.version }}
           draft: false
           prerelease: ${{ github.ref == 'refs/heads/develop' }}
+      - uses: jimeh/update-tags-action@v1
+        if: github.ref == 'refs/heads/main'
+        with:
+          tags: v${{ needs.version.outputs.major }}
 

@@ -12,7 +12,7 @@ Generates final distributable data output from a specified Pkl file.
 
 ## Example usage
 ```
-uses: emilymclean/pkl-data-action@v1
+uses: emilymclean/pkl-data-action@v2
 with:
   input-file: data.pkl
   output-file: data.json
