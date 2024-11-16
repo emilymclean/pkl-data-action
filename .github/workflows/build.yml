@@ -16,15 +16,14 @@ jobs:
         with:
           fetch-depth: '0'
       - name: Install GitVersion
-        uses: gittools/actions/gitversion/setup@v0.9.6
+        uses: gittools/actions/gitversion/setup@v3.0.0
         with:
           versionSpec: '5.x'
       - name: Use GitVersion
         id: gitversion # step id used as reference for output values
-        uses: gittools/actions/gitversion/execute@v0.9.6
+        uses: gittools/actions/gitversion/execute@v3.0.0
         with:
           useConfigFile: true
-          showConfig: true
           configFilePath: ./gitversion.yml
       - name: Display SemVer
         run: |
@@ -40,15 +39,17 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
+      - name: Create tag for release
+        uses: rickstaa/action-create-tag@v1
+        with:
+          tag: v${{ needs.version.outputs.version }}
+      - id: create_release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ needs.version.outputs.version }}
-          release_name: Release ${{ needs.version.outputs.version }}
-          draft: false
+          name: Release ${{ needs.version.outputs.version }}
           prerelease: ${{ github.ref == 'refs/heads/develop' }}
       - uses: jimeh/update-tags-action@v1
         if: github.ref == 'refs/heads/main'
